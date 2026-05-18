@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Packages — Liftora Admin</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Sans+Thai+Looped:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body class="admin-body">
+
+<div class="admin-layout">
+  <aside class="sidebar">
+    <a href="../index.html" class="sidebar-logo"><span class="logo-mark"></span>Liftora</a>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html"><span class="icon">⬚</span><span data-i18n="admin.nav.dashboard">Dashboard</span></a>
+      <a href="packages.html" class="active"><span class="icon">▤</span><span data-i18n="admin.nav.packages">Packages</span></a>
+      <a href="content.html"><span class="icon">✎</span><span data-i18n="admin.nav.content">Content</span></a>
+      <a href="leads.html"><span class="icon">◌</span><span data-i18n="admin.nav.leads">Leads</span></a>
+      <a href="portfolio.html"><span class="icon">▦</span><span data-i18n="admin.nav.portfolio">Portfolio</span></a>
+      <a href="settings.html"><span class="icon">⚙</span><span data-i18n="admin.nav.settings">Settings</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+      <a href="#" id="logoutBtn" style="font-size:13px; color:var(--text-muted);">↩ <span data-i18n="admin.nav.logout">Log out</span></a>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="admin-header">
+      <div>
+        <h1>Packages & Pricing</h1>
+        <div class="subtitle">Edit prices, features, and badges shown on the public site.</div>
+      </div>
+      <button class="btn btn-ghost btn-sm" id="resetBtn">↺ Reset to defaults</button>
+    </div>
+
+    <div class="edit-grid">
+      <!-- Starter -->
+      <div class="edit-card">
+        <h3>Starter</h3>
+        <p class="desc">Simple, fast websites for small brands.</p>
+        <div class="admin-field">
+          <label>Price (THB)</label>
+          <input type="number" id="price-starter" step="100">
+        </div>
+        <div class="admin-field">
+          <label>Visible on site</label>
+          <select id="enabled-starter">
+            <option value="true">Enabled</option>
+            <option value="false">Hidden</option>
+          </select>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary btn-sm" data-save="starter">Save changes</button>
+        </div>
+      </div>
+
+      <!-- Business -->
+      <div class="edit-card" style="border-color:var(--accent);">
+        <h3>Business <span class="status-badge status-new" style="margin-left:8px;">Featured</span></h3>
+        <p class="desc">E-commerce and content-rich websites.</p>
+        <div class="admin-field">
+          <label>Price (THB)</label>
+          <input type="number" id="price-business" step="100">
+        </div>
+        <div class="admin-field">
+          <label>Featured (Most Popular badge)</label>
+          <select id="featured-business">
+            <option value="true">Yes — show badge</option>
+            <option value="false">No</option>
+          </select>
+        </div>
+        <div class="admin-field">
+          <label>Visible on site</label>
+          <select id="enabled-business">
+            <option value="true">Enabled</option>
+            <option value="false">Hidden</option>
+          </select>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary btn-sm" data-save="business">Save changes</button>
+        </div>
+      </div>
+
+      <!-- Enterprise -->
+      <div class="edit-card">
+        <h3>Enterprise</h3>
+        <p class="desc">Custom platforms and large systems.</p>
+        <div class="admin-field">
+          <label>Starting price (THB, hidden if custom)</label>
+          <input type="number" id="price-enterprise" step="100">
+        </div>
+        <div class="admin-field">
+          <label>Show as "Custom" instead of price</label>
+          <select id="custom-enterprise">
+            <option value="true">Yes — show "Custom"</option>
+            <option value="false">No — show price</option>
+          </select>
+        </div>
+        <div class="admin-field">
+          <label>Visible on site</label>
+          <select id="enabled-enterprise">
+            <option value="true">Enabled</option>
+            <option value="false">Hidden</option>
+          </select>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary btn-sm" data-save="enterprise">Save changes</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:32px;">
+      <div class="panel-header">
+        <div class="panel-title">How edits show up</div>
+      </div>
+      <p style="color:var(--text-muted); font-size:14px; line-height:1.6;">
+        Changes save to your browser <code style="background:var(--surface); padding:2px 6px; border-radius:4px;">localStorage</code> instantly and update on the public site on the next page load.
+        For production, wire this admin to a real backend by replacing <code>DataStore.save()</code> in
+        <code>assets/js/data.js</code> with an API <code>POST /api/packages</code>.
+      </p>
+    </div>
+  </main>
+</div>
+
+<script src="../assets/js/i18n.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/main.js"></script>
+<script>
+  if (!localStorage.getItem('liftora_session')) location.href = 'login.html';
+
+  function loadFields() {
+    const data = DataStore.get();
+    document.getElementById('price-starter').value = data.packages.starter.priceTHB;
+    document.getElementById('enabled-starter').value = String(data.packages.starter.enabled);
+    document.getElementById('price-business').value = data.packages.business.priceTHB;
+    document.getElementById('enabled-business').value = String(data.packages.business.enabled);
+    document.getElementById('featured-business').value = String(data.packages.business.featured);
+    document.getElementById('price-enterprise').value = data.packages.enterprise.priceTHB;
+    document.getElementById('enabled-enterprise').value = String(data.packages.enterprise.enabled);
+    document.getElementById('custom-enterprise').value = String(data.packages.enterprise.isCustom);
+  }
+  loadFields();
+
+  document.querySelectorAll('[data-save]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = btn.dataset.save;
+      const data = DataStore.get();
+      if (key === 'starter') {
+        data.packages.starter.priceTHB = +document.getElementById('price-starter').value;
+        data.packages.starter.enabled = document.getElementById('enabled-starter').value === 'true';
+      } else if (key === 'business') {
+        data.packages.business.priceTHB = +document.getElementById('price-business').value;
+        data.packages.business.enabled = document.getElementById('enabled-business').value === 'true';
+        data.packages.business.featured = document.getElementById('featured-business').value === 'true';
+      } else if (key === 'enterprise') {
+        data.packages.enterprise.priceTHB = +document.getElementById('price-enterprise').value;
+        data.packages.enterprise.enabled = document.getElementById('enabled-enterprise').value === 'true';
+        data.packages.enterprise.isCustom = document.getElementById('custom-enterprise').value === 'true';
+      }
+      DataStore.save(data);
+      DataStore._cache = data;
+      showToast(`✓ ${key.charAt(0).toUpperCase() + key.slice(1)} package saved`);
+    });
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    if (confirm('Reset all package data to defaults? This cannot be undone.')) {
+      DataStore.reset();
+      loadFields();
+      showToast('✓ Reset to defaults');
+    }
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    localStorage.removeItem('liftora_session');
+    location.href = 'login.html';
+  });
+</script>
+</body>
+</html>

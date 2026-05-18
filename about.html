@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>About — Liftora</title>
+<meta name="description" content="Liftora is a small studio of designers, developers, and SEO specialists obsessed with measurable outcomes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Sans+Thai+Looped:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+  }
+  .team-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  .team-card:hover { transform: translateY(-4px); border-color: var(--text); }
+  .team-avatar {
+    width: 88px; height: 88px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    background: linear-gradient(135deg, var(--accent), #ff9e6f);
+  }
+  .team-name { font-weight: 700; font-size: 18px; margin-bottom: 4px; }
+  .team-role { font-size: 14px; color: var(--text-muted); }
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 32px;
+  }
+  .value-card {
+    padding: 32px 0;
+    border-top: 2px solid var(--text);
+  }
+  .value-card h3 {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+  .value-card p { color: var(--text-muted); }
+  .story-section {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 64px;
+    align-items: start;
+  }
+  @media (max-width:768px) { .story-section { grid-template-columns: 1fr; gap: 24px; } }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><span class="logo-mark"></span>Liftora</a>
+    <nav class="nav-links">
+      <a href="index.html" data-i18n="nav.services">Services</a>
+      <a href="packages.html" data-i18n="nav.packages">Packages</a>
+      <a href="portfolio.html" data-i18n="nav.portfolio">Portfolio</a>
+      <a href="about.html" class="active" data-i18n="nav.about">About</a>
+      <a href="contact.html" data-i18n="nav.contact">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="lang-toggle" data-action="toggle-lang">EN</button>
+      <button class="theme-toggle" data-action="toggle-theme">☾</button>
+      <a href="contact.html" class="btn btn-primary btn-sm magnetic" data-i18n="nav.cta">Start a project</a>
+      <button class="menu-toggle"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a> / <span data-i18n="nav.about">About</span></div>
+    <h1 data-i18n="page.about.title">About Liftora</h1>
+    <p data-i18n="page.about.sub">A small studio of designers, developers, and SEO specialists obsessed with measurable outcomes.</p>
+  </div>
+</section>
+
+<!-- Story -->
+<section class="section">
+  <div class="container">
+    <div class="story-section reveal">
+      <div class="eyebrow" style="position:sticky; top:120px;">Our story</div>
+      <div>
+        <h2 data-i18n="about.story.title" style="margin-bottom:24px;">We started Liftora because too many beautiful websites fail to grow.</h2>
+        <p class="lead" data-i18n="about.story.p1" style="margin-bottom:24px;"></p>
+        <p class="lead" data-i18n="about.story.p2"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Values -->
+<section class="section" style="background:var(--surface);">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="eyebrow" data-i18n="about.values.title">What we believe</div>
+      <h2 style="margin-top:12px;" data-i18n="about.values.title">What we believe</h2>
+    </div>
+    <div class="values-grid reveal">
+      <div class="value-card">
+        <h3 data-i18n="about.value.1.title">Outcomes over outputs</h3>
+        <p data-i18n="about.value.1.desc"></p>
+      </div>
+      <div class="value-card">
+        <h3 data-i18n="about.value.2.title">Speed is a feature</h3>
+        <p data-i18n="about.value.2.desc"></p>
+      </div>
+      <div class="value-card">
+        <h3 data-i18n="about.value.3.title">Ownership, not lock-in</h3>
+        <p data-i18n="about.value.3.desc"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Team -->
+<section class="section">
+  <div class="container">
+    <div class="section-header center reveal">
+      <div class="eyebrow">The team</div>
+      <h2 style="margin-top:12px;">Small, senior, and obsessed with the details.</h2>
+    </div>
+    <div class="team-grid reveal">
+      <div class="team-card">
+        <div class="team-avatar"></div>
+        <div class="team-name">Nattaphon S.</div>
+        <div class="team-role">Founder / Creative Director</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#16a34a,#5b5bd6);"></div>
+        <div class="team-name">Phailin K.</div>
+        <div class="team-role">Lead Designer</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#06b6d4,#8b5cf6);"></div>
+        <div class="team-name">Suriya T.</div>
+        <div class="team-role">Senior Engineer</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#f59e0b,#dc2626);"></div>
+        <div class="team-name">Wanida P.</div>
+        <div class="team-role">SEO Lead</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<section class="section" style="background:var(--surface);">
+  <div class="container">
+    <div class="stats reveal">
+      <div class="stat-item">
+        <div class="stat-num">200+</div>
+        <div class="stat-label">Projects delivered</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Client retention</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">12</div>
+        <div class="stat-label">Senior team members</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">7</div>
+        <div class="stat-label">Years in business</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cta-section reveal">
+      <h2 data-i18n="cta.title"></h2>
+      <p data-i18n="cta.sub"></p>
+      <a href="contact.html" class="btn btn-primary btn-lg magnetic" data-i18n="cta.btn"></a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="index.html" class="logo"><span class="logo-mark"></span>Liftora</a><p data-i18n="footer.tagline"></p></div>
+      <div><h4 data-i18n="footer.services">Services</h4><ul>
+        <li><a href="packages.html" data-i18n="footer.s1"></a></li><li><a href="packages.html" data-i18n="footer.s2"></a></li>
+        <li><a href="packages.html" data-i18n="footer.s3"></a></li><li><a href="packages.html" data-i18n="footer.s4"></a></li>
+      </ul></div>
+      <div><h4 data-i18n="footer.company">Company</h4><ul>
+        <li><a href="about.html" data-i18n="footer.c1"></a></li><li><a href="portfolio.html" data-i18n="footer.c2"></a></li>
+        <li><a href="packages.html" data-i18n="footer.c3"></a></li><li><a href="contact.html" data-i18n="footer.c4"></a></li>
+      </ul></div>
+      <div><h4 data-i18n="footer.legal">Legal</h4><ul>
+        <li><a href="#" data-i18n="footer.l1"></a></li><li><a href="#" data-i18n="footer.l2"></a></li>
+        <li><a href="#" data-i18n="footer.l3"></a></li><li><a href="admin/login.html">Admin</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <div data-i18n="footer.copy"></div>
+      <div class="social-links"><a href="#">f</a><a href="#">ig</a><a href="#">in</a><a href="#">L</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/i18n.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

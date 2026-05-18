@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contact — Liftora</title>
+<meta name="description" content="Start a project with Liftora. Tell us about your goals and we will reply within 24 hours.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Sans+Thai+Looped:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+  @media (max-width:900px) { .contact-layout { grid-template-columns: 1fr; gap: 32px; } }
+  .contact-form {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: clamp(24px, 4vw, 48px);
+  }
+  .contact-info {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: clamp(24px, 4vw, 40px);
+    position: sticky;
+    top: 100px;
+  }
+  .info-item {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .info-item:last-child { border-bottom: none; }
+  .info-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+  .info-value { font-size: 16px; font-weight: 500; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><span class="logo-mark"></span>Liftora</a>
+    <nav class="nav-links">
+      <a href="index.html" data-i18n="nav.services">Services</a>
+      <a href="packages.html" data-i18n="nav.packages">Packages</a>
+      <a href="portfolio.html" data-i18n="nav.portfolio">Portfolio</a>
+      <a href="about.html" data-i18n="nav.about">About</a>
+      <a href="contact.html" class="active" data-i18n="nav.contact">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="lang-toggle" data-action="toggle-lang">EN</button>
+      <button class="theme-toggle" data-action="toggle-theme">☾</button>
+      <a href="contact.html" class="btn btn-primary btn-sm magnetic" data-i18n="nav.cta">Start a project</a>
+      <button class="menu-toggle"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a> / <span data-i18n="nav.contact">Contact</span></div>
+    <h1 data-i18n="page.contact.title">Start a project</h1>
+    <p data-i18n="page.contact.sub">Tell us what you need. We respond within 24 hours.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="contact-layout">
+      <form id="contactForm" class="contact-form reveal" novalidate>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" data-i18n="contact.name">Your name</label>
+            <input class="form-input" name="name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-i18n="contact.email">Email</label>
+            <input class="form-input" type="email" name="email" required>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" data-i18n="contact.phone">Phone</label>
+            <input class="form-input" name="phone">
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-i18n="contact.company">Company</label>
+            <input class="form-input" name="company">
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" data-i18n="contact.package">Package</label>
+            <select class="form-select" name="package" id="packageSelect">
+              <option value="starter" data-i18n="contact.package.1">Starter</option>
+              <option value="business" selected data-i18n="contact.package.2">Business</option>
+              <option value="enterprise" data-i18n="contact.package.3">Enterprise</option>
+              <option value="custom" data-i18n="contact.package.4">Custom / not sure</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-i18n="contact.budget">Budget</label>
+            <select class="form-select" name="budget">
+              <option value="b1" data-i18n="contact.budget.1">Under ฿30,000</option>
+              <option value="b2" data-i18n="contact.budget.2">฿30,000 – ฿100,000</option>
+              <option value="b3" selected data-i18n="contact.budget.3">฿100,000 – ฿300,000</option>
+              <option value="b4" data-i18n="contact.budget.4">฿300,000+</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" data-i18n="contact.message">Tell us about your project</label>
+          <textarea class="form-textarea" name="message" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg magnetic" style="width:100%;">
+          <span data-i18n="contact.submit">Send inquiry</span>
+          <span class="arrow">→</span>
+        </button>
+      </form>
+
+      <aside class="contact-info reveal reveal-delay-1">
+        <h3 data-i18n="contact.info.title" style="font-size:20px; margin-bottom:8px;">Direct contact</h3>
+        <p style="color:var(--text-muted); font-size:14px; margin-bottom:16px;">Prefer to skip the form? Reach us directly:</p>
+        <div class="info-item">
+          <div class="info-label" data-i18n="contact.info.email.label">Email</div>
+          <a href="mailto:hello@liftora.studio" class="info-value">hello@liftora.studio</a>
+        </div>
+        <div class="info-item">
+          <div class="info-label" data-i18n="contact.info.phone.label">Phone</div>
+          <a href="tel:+6621234567" class="info-value">+66 2 123 4567</a>
+        </div>
+        <div class="info-item">
+          <div class="info-label" data-i18n="contact.info.line.label">Line</div>
+          <div class="info-value">@liftora</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label" data-i18n="contact.info.office.label">Office</div>
+          <div class="info-value">Bangkok, Thailand<br><span style="color:var(--text-muted); font-size:13px;">Mon–Fri • 09:00 – 18:00</span></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="index.html" class="logo"><span class="logo-mark"></span>Liftora</a><p data-i18n="footer.tagline"></p></div>
+      <div><h4 data-i18n="footer.services">Services</h4><ul>
+        <li><a href="packages.html" data-i18n="footer.s1"></a></li><li><a href="packages.html" data-i18n="footer.s2"></a></li>
+        <li><a href="packages.html" data-i18n="footer.s3"></a></li><li><a href="packages.html" data-i18n="footer.s4"></a></li>
+      </ul></div>
+      <div><h4 data-i18n="footer.company">Company</h4><ul>
+        <li><a href="about.html" data-i18n="footer.c1"></a></li><li><a href="portfolio.html" data-i18n="footer.c2"></a></li>
+        <li><a href="packages.html" data-i18n="footer.c3"></a></li><li><a href="contact.html" data-i18n="footer.c4"></a></li>
+      </ul></div>
+      <div><h4 data-i18n="footer.legal">Legal</h4><ul>
+        <li><a href="#" data-i18n="footer.l1"></a></li><li><a href="#" data-i18n="footer.l2"></a></li>
+        <li><a href="#" data-i18n="footer.l3"></a></li><li><a href="admin/login.html">Admin</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <div data-i18n="footer.copy"></div>
+      <div class="social-links"><a href="#">f</a><a href="#">ig</a><a href="#">in</a><a href="#">L</a></div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/i18n.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+  /* Pre-select package from URL */
+  const params = new URLSearchParams(location.search);
+  const pkg = params.get('pkg');
+  if (pkg) {
+    const sel = document.getElementById('packageSelect');
+    if (sel) sel.value = pkg;
+  }
+</script>
+</body>
+</html>

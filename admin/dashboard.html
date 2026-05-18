@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard — Liftora Admin</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Sans+Thai+Looped:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body class="admin-body">
+
+<div class="admin-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <a href="../index.html" class="sidebar-logo"><span class="logo-mark"></span>Liftora</a>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="active"><span class="icon">⬚</span><span data-i18n="admin.nav.dashboard">Dashboard</span></a>
+      <a href="packages.html"><span class="icon">▤</span><span data-i18n="admin.nav.packages">Packages</span></a>
+      <a href="content.html"><span class="icon">✎</span><span data-i18n="admin.nav.content">Content</span></a>
+      <a href="leads.html"><span class="icon">◌</span><span data-i18n="admin.nav.leads">Leads</span></a>
+      <a href="portfolio.html"><span class="icon">▦</span><span data-i18n="admin.nav.portfolio">Portfolio</span></a>
+      <a href="settings.html"><span class="icon">⚙</span><span data-i18n="admin.nav.settings">Settings</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+      <a href="#" id="logoutBtn" style="font-size:13px; color:var(--text-muted);">↩ <span data-i18n="admin.nav.logout">Log out</span></a>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+    <div class="admin-header">
+      <div>
+        <h1><span data-i18n="admin.dash.welcome">Welcome back</span>, <span id="userName">Admin</span></h1>
+        <div class="subtitle" id="dateNow"></div>
+      </div>
+      <div style="display:flex; gap:8px;">
+        <button class="lang-toggle" data-action="toggle-lang">EN</button>
+        <button class="theme-toggle" data-action="toggle-theme">☾</button>
+        <a href="../index.html" class="btn btn-ghost btn-sm">↗ View site</a>
+      </div>
+    </div>
+
+    <!-- KPIs -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">New leads (30d)</div>
+        <div class="kpi-value" id="kpiLeads">0</div>
+        <div class="kpi-trend">↑ +24% vs prev</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Projects this quarter</div>
+        <div class="kpi-value">12</div>
+        <div class="kpi-trend">↑ +8% vs prev</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Avg deal size</div>
+        <div class="kpi-value">฿94K</div>
+        <div class="kpi-trend">↑ +12%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Conversion rate</div>
+        <div class="kpi-value">8.4%</div>
+        <div class="kpi-trend down">↓ -0.6%</div>
+      </div>
+    </div>
+
+    <!-- Chart -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Lead trend — last 12 weeks</div>
+        <select class="form-select" style="width:auto; padding:6px 12px; font-size:13px;">
+          <option>Last 12 weeks</option>
+          <option>Last 6 months</option>
+          <option>Last year</option>
+        </select>
+      </div>
+      <div class="chart">
+        <svg viewBox="0 0 600 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="grad" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#5b5bd6" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#5b5bd6" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path d="M0,180 L50,160 L100,170 L150,140 L200,120 L250,130 L300,90 L350,100 L400,70 L450,80 L500,50 L550,60 L600,30 L600,220 L0,220 Z" fill="url(#grad)"/>
+          <path d="M0,180 L50,160 L100,170 L150,140 L200,120 L250,130 L300,90 L350,100 L400,70 L450,80 L500,50 L550,60 L600,30" fill="none" stroke="#5b5bd6" stroke-width="2.5" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Recent leads -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Recent leads</div>
+        <a href="leads.html" class="btn btn-ghost btn-sm">View all →</a>
+      </div>
+      <table class="admin-table" id="recentLeadsTable">
+        <thead>
+          <tr><th>Name</th><th>Email</th><th>Package</th><th>Budget</th><th>Date</th><th>Status</th></tr>
+        </thead>
+        <tbody id="recentLeadsBody">
+          <tr><td colspan="6" style="text-align:center; color:var(--text-muted); padding:32px;">No leads yet. Form submissions will appear here.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Quick actions -->
+    <div class="edit-grid">
+      <div class="edit-card">
+        <h3>Quick edit: Packages</h3>
+        <p class="desc">Update package prices visible across the site.</p>
+        <a href="packages.html" class="btn btn-primary btn-sm">Manage packages →</a>
+      </div>
+      <div class="edit-card">
+        <h3>Manage leads</h3>
+        <p class="desc">View, update status, and respond to inquiries.</p>
+        <a href="leads.html" class="btn btn-primary btn-sm">Open leads →</a>
+      </div>
+      <div class="edit-card">
+        <h3>Edit site content</h3>
+        <p class="desc">Hero text, contact info, and meta tags.</p>
+        <a href="content.html" class="btn btn-primary btn-sm">Edit content →</a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="../assets/js/i18n.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/main.js"></script>
+<script>
+  /* Auth guard */
+  const session = JSON.parse(localStorage.getItem('liftora_session') || 'null');
+  if (!session) location.href = 'login.html';
+  document.getElementById('userName').textContent = session?.name || 'Admin';
+  document.getElementById('dateNow').textContent = new Date().toLocaleDateString('en-US', {
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    localStorage.removeItem('liftora_session');
+    location.href = 'login.html';
+  });
+
+  /* Recent leads */
+  const data = DataStore.get();
+  document.getElementById('kpiLeads').textContent = data.leads.length;
+  if (data.leads.length > 0) {
+    const body = document.getElementById('recentLeadsBody');
+    body.innerHTML = data.leads.slice(0, 5).map(l => `
+      <tr>
+        <td>${l.name || '—'}</td>
+        <td>${l.email || '—'}</td>
+        <td>${l.package || '—'}</td>
+        <td>${l.budget || '—'}</td>
+        <td>${new Date(l.createdAt).toLocaleDateString()}</td>
+        <td><span class="status-badge status-${l.status || 'new'}">${l.status || 'new'}</span></td>
+      </tr>
+    `).join('');
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin Login — Liftora</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Sans+Thai+Looped:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body class="admin-body">
+
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-logo">
+      <span class="logo-mark"></span>
+      Liftora
+    </div>
+    <h1 data-i18n="admin.login.title">Admin Login</h1>
+    <p class="login-sub" data-i18n="admin.login.sub">Sign in to manage your website content</p>
+    <div class="login-demo" data-i18n="admin.login.demo">Demo: admin@liftora.studio / liftora2026</div>
+    <div class="login-error" id="loginError">Invalid email or password.</div>
+    <form id="loginForm">
+      <div class="admin-field">
+        <label data-i18n="admin.login.email">Email</label>
+        <input type="email" name="email" required value="admin@liftora.studio">
+      </div>
+      <div class="admin-field">
+        <label data-i18n="admin.login.password">Password</label>
+        <input type="password" name="password" required>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%; margin-top:8px;" data-i18n="admin.login.btn">Sign in</button>
+    </form>
+    <div style="text-align:center; margin-top:24px; font-size:13px;">
+      <a href="../index.html" style="color:var(--text-muted);">← Back to site</a>
+    </div>
+    <div style="text-align:center; margin-top:16px;">
+      <button class="lang-toggle" data-action="toggle-lang" style="font-size:11px;">EN</button>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/i18n.js"></script>
+<script>
+  /* Demo auth — uses localStorage as session.
+     For real backend: replace with fetch('/api/login') -> JWT in httpOnly cookie. */
+  const VALID_USERS = [
+    { email: 'admin@liftora.studio', password: 'liftora2026', name: 'Admin' }
+  ];
+
+  document.getElementById('loginForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const email = formData.get('email');
+    const password = formData.get('password');
+    const user = VALID_USERS.find(u => u.email === email && u.password === password);
+    const err = document.getElementById('loginError');
+    if (user) {
+      err.classList.remove('show');
+      localStorage.setItem('liftora_session', JSON.stringify({
+        email: user.email,
+        name: user.name,
+        loginAt: Date.now()
+      }));
+      location.href = 'dashboard.html';
+    } else {
+      err.classList.add('show');
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Settings — Liftora Admin</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Sans+Thai+Looped:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body class="admin-body">
+
+<div class="admin-layout">
+  <aside class="sidebar">
+    <a href="../index.html" class="sidebar-logo"><span class="logo-mark"></span>Liftora</a>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html"><span class="icon">⬚</span><span data-i18n="admin.nav.dashboard">Dashboard</span></a>
+      <a href="packages.html"><span class="icon">▤</span><span data-i18n="admin.nav.packages">Packages</span></a>
+      <a href="content.html"><span class="icon">✎</span><span data-i18n="admin.nav.content">Content</span></a>
+      <a href="leads.html"><span class="icon">◌</span><span data-i18n="admin.nav.leads">Leads</span></a>
+      <a href="portfolio.html"><span class="icon">▦</span><span data-i18n="admin.nav.portfolio">Portfolio</span></a>
+      <a href="settings.html" class="active"><span class="icon">⚙</span><span data-i18n="admin.nav.settings">Settings</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+      <a href="#" id="logoutBtn" style="font-size:13px; color:var(--text-muted);">↩ <span data-i18n="admin.nav.logout">Log out</span></a>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="admin-header">
+      <div>
+        <h1>Settings</h1>
+        <div class="subtitle">Contact info, social links, and site-wide preferences.</div>
+      </div>
+    </div>
+
+    <div class="edit-grid">
+      <div class="edit-card">
+        <h3>Contact information</h3>
+        <p class="desc">Shown on the contact page and footer.</p>
+        <div class="admin-field"><label>Site name</label><input id="s-siteName"></div>
+        <div class="admin-field"><label>Tagline</label><input id="s-tagline"></div>
+        <div class="admin-field"><label>Email</label><input id="s-email" type="email"></div>
+        <div class="admin-field"><label>Phone</label><input id="s-phone"></div>
+        <div class="admin-field"><label>Line ID</label><input id="s-line"></div>
+        <div class="admin-field"><label>Address</label><input id="s-address"></div>
+        <button class="btn btn-primary btn-sm" data-save="contact">Save contact info</button>
+      </div>
+
+      <div class="edit-card">
+        <h3>Social media</h3>
+        <p class="desc">Footer social icons link to these URLs.</p>
+        <div class="admin-field"><label>Facebook URL</label><input id="s-socialFacebook"></div>
+        <div class="admin-field"><label>Instagram URL</label><input id="s-socialInstagram"></div>
+        <div class="admin-field"><label>LinkedIn URL</label><input id="s-socialLinkedin"></div>
+        <button class="btn btn-primary btn-sm" data-save="social">Save social links</button>
+      </div>
+
+      <div class="edit-card">
+        <h3>Security</h3>
+        <p class="desc">Admin account password.</p>
+        <div class="admin-field"><label>Current password</label><input type="password"></div>
+        <div class="admin-field"><label>New password</label><input type="password"></div>
+        <div class="admin-field"><label>Confirm new password</label><input type="password"></div>
+        <button class="btn btn-primary btn-sm" disabled>Update password</button>
+        <p style="font-size:12px; color:var(--text-muted); margin-top:12px;">⚠ In the demo, the password is hard-coded in <code>login.html</code>. Wire to a real auth backend before production.</p>
+      </div>
+
+      <div class="edit-card" style="border-color:var(--danger);">
+        <h3 style="color:var(--danger);">Danger zone</h3>
+        <p class="desc">Permanently reset all admin data.</p>
+        <button class="btn btn-ghost btn-sm" style="color:var(--danger); border-color:var(--danger);" id="resetAllBtn">Reset all data</button>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:32px;">
+      <div class="panel-header"><div class="panel-title">Export / Backup</div></div>
+      <p style="color:var(--text-muted); margin-bottom:16px;">Download all your admin data as JSON for backup, or import a previous backup.</p>
+      <div class="btn-row">
+        <button class="btn btn-primary btn-sm" id="exportJsonBtn">↓ Export all data</button>
+        <label class="btn btn-ghost btn-sm" style="cursor:pointer;">
+          ↑ Import data
+          <input type="file" id="importJsonInput" accept=".json" style="display:none;">
+        </label>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="../assets/js/i18n.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/main.js"></script>
+<script>
+  if (!localStorage.getItem('liftora_session')) location.href = 'login.html';
+
+  function load() {
+    const data = DataStore.get();
+    Object.entries(data.settings).forEach(([k, v]) => {
+      const el = document.getElementById('s-' + k);
+      if (el) el.value = v;
+    });
+  }
+  load();
+
+  document.querySelectorAll('[data-save]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const data = DataStore.get();
+      btn.closest('.edit-card').querySelectorAll('input').forEach(input => {
+        if (input.id.startsWith('s-')) {
+          data.settings[input.id.replace('s-', '')] = input.value;
+        }
+      });
+      DataStore.save(data);
+      DataStore._cache = data;
+      showToast('✓ Saved');
+    });
+  });
+
+  document.getElementById('exportJsonBtn').addEventListener('click', () => {
+    const data = DataStore.get();
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `liftora_data_${new Date().toISOString().slice(0,10)}.json`;
+    a.click();
+    showToast('✓ Data exported');
+  });
+
+  document.getElementById('importJsonInput').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const imported = JSON.parse(reader.result);
+        DataStore.save(imported);
+        DataStore._cache = imported;
+        load();
+        showToast('✓ Data imported');
+      } catch (err) {
+        showToast('✗ Invalid file');
+      }
+    };
+    reader.readAsText(file);
+  });
+
+  document.getElementById('resetAllBtn').addEventListener('click', () => {
+    if (!confirm('Reset ALL admin data — packages, content, leads, portfolio? Cannot be undone.')) return;
+    DataStore.reset();
+    load();
+    showToast('✓ All data reset');
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    localStorage.removeItem('liftora_session');
+    location.href = 'login.html';
+  });
+</script>
+</body>
+</html>
