@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="th" data-lang="th" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Content — Pulselab Admin</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans+Thai+Looped:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body class="admin-body">
+
+<div class="admin-layout">
+  <aside class="sidebar">
+    <a href="../index.html" class="sidebar-logo"><span class="logo-mark"></span>Pulselab</a>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html"><span class="icon">⬚</span><span data-i18n="admin.nav.dashboard">Dashboard</span></a>
+      <a href="packages.html"><span class="icon">▤</span><span data-i18n="admin.nav.packages">Packages</span></a>
+      <a href="content.html" class="active"><span class="icon">✎</span><span data-i18n="admin.nav.content">Content</span></a>
+      <a href="leads.html"><span class="icon">◌</span><span data-i18n="admin.nav.leads">Leads</span></a>
+      <a href="portfolio.html"><span class="icon">▦</span><span data-i18n="admin.nav.portfolio">Portfolio</span></a>
+      <a href="settings.html"><span class="icon">⚙</span><span data-i18n="admin.nav.settings">Settings</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+      <a href="#" id="logoutBtn" style="font-size:13px; color:var(--text-muted);">↩ <span data-i18n="admin.nav.logout">Log out</span></a>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="admin-header">
+      <div>
+        <h1>Site content</h1>
+        <div class="subtitle">Headlines, copy, and meta tags. Edits save instantly and reflect on the next page load.</div>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <div class="tab active" data-tab="hero">Homepage</div>
+      <div class="tab" data-tab="about">About</div>
+      <div class="tab" data-tab="seo">SEO / Meta</div>
+    </div>
+
+    <!-- Homepage tab -->
+    <div class="tab-panel active" data-panel="hero">
+      <div class="edit-grid">
+        <div class="edit-card" style="grid-column:1 / -1;">
+          <h3>Hero section</h3>
+          <p class="desc">The first thing visitors read on the homepage.</p>
+          <div class="admin-field">
+            <label>Hero eyebrow (small label above headline)</label>
+            <input id="c-hero-eyebrow" value="Web design + SEO studio">
+          </div>
+          <div class="admin-field">
+            <label>Headline (use {accent}...{/accent} to highlight)</label>
+            <textarea id="c-hero-title" rows="2">Websites that {accent}look beautiful{/accent}, rank top, and {accent}sell more{/accent}.</textarea>
+          </div>
+          <div class="admin-field">
+            <label>Subheadline</label>
+            <textarea id="c-hero-sub" rows="3">We design, build, and grow websites for ambitious Thai brands — from a clean landing page to a full e-commerce or enterprise platform with a custom admin.</textarea>
+          </div>
+          <div class="form-grid">
+            <div class="admin-field">
+              <label>Primary CTA label</label>
+              <input id="c-cta-primary" value="Start a project">
+            </div>
+            <div class="admin-field">
+              <label>Secondary CTA label</label>
+              <input id="c-cta-secondary" value="View our work">
+            </div>
+          </div>
+          <button class="btn btn-primary btn-sm" data-save="hero">Save hero</button>
+        </div>
+
+        <div class="edit-card">
+          <h3>Stats</h3>
+          <p class="desc">Numbers shown in the stats band.</p>
+          <div class="admin-field">
+            <label>Projects delivered</label>
+            <input id="c-stat-1" value="200+">
+          </div>
+          <div class="admin-field">
+            <label>Avg organic traffic lift</label>
+            <input id="c-stat-2" value="+287%">
+          </div>
+          <div class="admin-field">
+            <label>Client retention</label>
+            <input id="c-stat-3" value="98%">
+          </div>
+          <div class="admin-field">
+            <label>Avg page load</label>
+            <input id="c-stat-4" value="< 1.5s">
+          </div>
+          <button class="btn btn-primary btn-sm" data-save="stats">Save stats</button>
+        </div>
+
+        <div class="edit-card">
+          <h3>Testimonials</h3>
+          <p class="desc">Quotes on the homepage testimonials section.</p>
+          <div class="admin-field">
+            <label>Quote 1</label>
+            <textarea id="c-t1-q" rows="2">Our organic traffic 4x in 9 months.</textarea>
+          </div>
+          <div class="admin-field">
+            <label>Author 1</label>
+            <input id="c-t1-name" value="Pim Suwannasri, Founder Modora">
+          </div>
+          <div class="admin-field">
+            <label>Quote 2</label>
+            <textarea id="c-t2-q" rows="2">Custom admin saves 10 hours a week.</textarea>
+          </div>
+          <div class="admin-field">
+            <label>Author 2</label>
+            <input id="c-t2-name" value="Krit Phanthong, COO Lumen">
+          </div>
+          <button class="btn btn-primary btn-sm" data-save="testimonials">Save testimonials</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- About tab -->
+    <div class="tab-panel" data-panel="about">
+      <div class="edit-card">
+        <h3>About page</h3>
+        <p class="desc">Company story shown on /about.</p>
+        <div class="admin-field">
+          <label>Story headline</label>
+          <input id="c-about-title" value="We started Pulselab because too many beautiful websites fail to grow.">
+        </div>
+        <div class="admin-field">
+          <label>Paragraph 1</label>
+          <textarea id="c-about-p1" rows="4">For years we watched brands invest in stunning designs that quietly underperformed...</textarea>
+        </div>
+        <div class="admin-field">
+          <label>Paragraph 2</label>
+          <textarea id="c-about-p2" rows="4">Every site we ship is engineered for three outcomes...</textarea>
+        </div>
+        <button class="btn btn-primary btn-sm" data-save="about">Save about</button>
+      </div>
+    </div>
+
+    <!-- SEO tab -->
+    <div class="tab-panel" data-panel="seo">
+      <div class="edit-grid">
+        <div class="edit-card" style="grid-column:1/-1;">
+          <h3>Homepage meta tags</h3>
+          <div class="admin-field">
+            <label>Page title (max 60 chars)</label>
+            <input id="c-meta-title" maxlength="60" value="Pulselab — Web design + SEO studio for ambitious Thai brands">
+          </div>
+          <div class="admin-field">
+            <label>Meta description (max 160 chars)</label>
+            <textarea id="c-meta-desc" rows="2" maxlength="160">Pulselab is a Bangkok-based studio designing, building, and growing websites that look beautiful, rank top on Google, and sell more.</textarea>
+          </div>
+          <div class="admin-field">
+            <label>OG image URL</label>
+            <input id="c-og-image" value="/assets/img/og-default.jpg">
+          </div>
+          <button class="btn btn-primary btn-sm" data-save="seo">Save SEO</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:32px; background:var(--accent-soft); border-color:rgba(91,91,214,0.2);">
+      <strong style="color:var(--accent);">Note:</strong> In this demo, edits save to <code style="background:white; padding:2px 6px; border-radius:4px;">localStorage</code>. To make edits affect HTML files for all visitors, wire this admin to a backend API and rerender pages from the saved content.
+    </div>
+  </main>
+</div>
+
+<script src="../assets/js/i18n.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/main.js"></script>
+<script>
+  if (!localStorage.getItem('pulselab_session')) location.href = 'login.html';
+
+  /* Tabs */
+  document.querySelectorAll('.tab').forEach(t => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      document.querySelector(`.tab-panel[data-panel="${t.dataset.tab}"]`).classList.add('active');
+    });
+  });
+
+  /* Save handlers */
+  document.querySelectorAll('[data-save]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const data = DataStore.get();
+      data.content = data.content || {};
+      const section = btn.dataset.save;
+      data.content[section] = {};
+      document.querySelectorAll(`#c-${section}-*, .tab-panel.active [id^="c-"]`).forEach(input => {
+        data.content[section][input.id.replace('c-', '')] = input.value;
+      });
+      // Capture all inputs in active panel
+      const panel = btn.closest('.tab-panel') || btn.closest('.edit-card');
+      panel.querySelectorAll('input, textarea').forEach(input => {
+        if (input.id.startsWith('c-')) {
+          const key = input.id.replace('c-', '');
+          data.content[section][key] = input.value;
+        }
+      });
+      DataStore.save(data);
+      DataStore._cache = data;
+      showToast(`✓ ${section.charAt(0).toUpperCase() + section.slice(1)} saved`);
+    });
+  });
+
+  /* Load any saved content */
+  const data = DataStore.get();
+  if (data.content) {
+    Object.entries(data.content).forEach(([section, fields]) => {
+      Object.entries(fields).forEach(([key, val]) => {
+        const el = document.getElementById('c-' + key);
+        if (el) el.value = val;
+      });
+    });
+  }
+
+  document.getElementById('logoutBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    localStorage.removeItem('pulselab_session');
+    location.href = 'login.html';
+  });
+</script>
+</body>
+</html>

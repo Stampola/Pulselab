@@ -1,0 +1,10 @@
+# Cloudflare Workers — static assets config
+# https://developers.cloudflare.com/workers/static-assets/
+
+name = "pulselab"
+compatibility_date = "2026-05-18"
+
+[assets]
+directory = "./"
+not_found_handling = "404-page"
+html_handling = "auto-trailing-slash"

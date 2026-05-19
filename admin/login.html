@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="th" data-lang="th" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin Login — Pulselab</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans+Thai+Looped:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body class="admin-body">
+
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-logo">
+      <span class="logo-mark" aria-hidden="true"></span>
+      Pulselab
+    </div>
+    <h1 data-i18n="admin.login.title">Admin Login</h1>
+    <p class="login-sub" data-i18n="admin.login.sub">Sign in to manage your website content</p>
+    <div class="login-demo" data-i18n="admin.login.demo">Demo mode — change credentials in admin/login.html before going live</div>
+    <div class="login-error" id="loginError">Invalid email or password.</div>
+    <form id="loginForm">
+      <div class="admin-field">
+        <label for="login-email" data-i18n="admin.login.email">Email</label>
+        <input id="login-email" type="email" name="email" required autocomplete="email">
+      </div>
+      <div class="admin-field">
+        <label for="login-password" data-i18n="admin.login.password">Password</label>
+        <input id="login-password" type="password" name="password" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%; margin-top:8px;" data-i18n="admin.login.btn">Sign in</button>
+    </form>
+    <div style="text-align:center; margin-top:24px; font-size:13px;">
+      <a href="../index.html" style="color:var(--text-muted);">← Back to site</a>
+    </div>
+    <div style="text-align:center; margin-top:16px;">
+      <button class="lang-toggle" data-action="toggle-lang" aria-label="Toggle language" style="font-size:11px;">EN</button>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/i18n.js"></script>
+<script>
+/* ============================================================
+   DEMO AUTH ONLY — DO NOT USE IN PRODUCTION
+   ============================================================
+   Client-side comparison. Anyone viewing source can see the
+   password. Use only behind another access layer (Cloudflare
+   Access, Basic Auth at the host level, an IP allowlist, etc.).
+
+   For real auth, replace this block with a fetch() to a backend
+   that returns an httpOnly session cookie:
+     - Next.js + NextAuth
+     - Supabase Auth
+     - Clerk / Auth.js
+     - Cloudflare Workers + JWT (httpOnly cookie)
+   ============================================================ */
+
+const DEMO_CREDENTIALS = {
+  email:    'admin@pulselab.work',
+  password: 'pulselab2026',
+  name:     'Admin'
+};
+
+document.getElementById('loginForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var form = e.target;
+  var email = (form.email.value || '').trim().toLowerCase();
+  var password = form.password.value || '';
+  var errEl = document.getElementById('loginError');
+  var submitBtn = form.querySelector('button[type="submit"]');
+
+  if (submitBtn) submitBtn.disabled = true;
+
+  var ok =
+    email === DEMO_CREDENTIALS.email.toLowerCase() &&
+    password === DEMO_CREDENTIALS.password;
+
+  if (!ok) {
+    errEl.classList.add('show');
+    if (submitBtn) submitBtn.disabled = false;
+    return;
+  }
+
+  errEl.classList.remove('show');
+  try {
+    localStorage.setItem('pulselab_session', JSON.stringify({
+      email: email,
+      name: DEMO_CREDENTIALS.name,
+      loginAt: Date.now()
+    }));
+  } catch (err) {
+    console.error('Session storage failed', err);
+  }
+  location.href = 'dashboard.html';
+});
+</script>
+</body>
+</html>

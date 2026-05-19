@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="th" data-lang="th" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contact — Pulselab</title>
+<meta name="description" content="Start a project with Pulselab. Tell us about your goals and we will reply within 24 hours.">
+<meta name="theme-color" content="#050714">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="apple-touch-icon" href="assets/img/favicon.svg">
+<link rel="canonical" href="https://pulselab.work/contact.html">
+<link rel="alternate" hreflang="th" href="https://pulselab.work/contact.html">
+<link rel="alternate" hreflang="en" href="https://pulselab.work/contact.html?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://pulselab.work/contact.html">
+<meta property="og:title" content="Contact — Pulselab">
+<meta property="og:description" content="Tell us about your project. We reply within 24 hours.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://pulselab.work/contact.html">
+<meta property="og:image" content="https://pulselab.work/assets/img/og-image.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pulselab.work/assets/img/og-image.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans+Thai+Looped:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><span class="logo-mark" aria-hidden="true"></span>Pulselab</a>
+    <nav class="nav-links">
+      <a href="index.html" data-i18n="nav.services">Services</a>
+      <a href="packages.html" data-i18n="nav.packages">Packages</a>
+      <a href="portfolio.html" data-i18n="nav.portfolio">Portfolio</a>
+      <a href="about.html" data-i18n="nav.about">About</a>
+      <a href="contact.html" class="active" data-i18n="nav.contact">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="lang-toggle" data-action="toggle-lang" aria-label="Toggle language">EN</button>
+      <button class="theme-toggle" data-action="toggle-theme" aria-label="Toggle theme">☾</button>
+      <a href="contact.html" class="btn btn-primary btn-sm magnetic" data-i18n="nav.cta">Start a project</a>
+      <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a> / <span data-i18n="nav.contact">Contact</span></div>
+    <h1 data-i18n="page.contact.title">Start a project</h1>
+    <p data-i18n="page.contact.sub">Tell us what you need. We respond within 24 hours.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="contact-layout">
+      <form id="contactForm" class="contact-form reveal" aria-label="Project inquiry form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="cf-name" data-i18n="contact.name">Your name</label>
+            <input id="cf-name" class="form-input" name="name" required aria-required="true" autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cf-email" data-i18n="contact.email">Email</label>
+            <input id="cf-email" class="form-input" type="email" name="email" required aria-required="true" autocomplete="email">
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="cf-phone" data-i18n="contact.phone">Phone</label>
+            <input id="cf-phone" class="form-input" name="phone" type="tel" autocomplete="tel">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cf-company" data-i18n="contact.company">Company</label>
+            <input id="cf-company" class="form-input" name="company" autocomplete="organization">
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="cf-package" data-i18n="contact.package">Package</label>
+            <select id="cf-package" class="form-select" name="package">
+              <option value="starter" data-i18n="contact.package.1">Starter</option>
+              <option value="business" selected data-i18n="contact.package.2">Business</option>
+              <option value="enterprise" data-i18n="contact.package.3">Enterprise</option>
+              <option value="custom" data-i18n="contact.package.4">Custom / not sure</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="cf-budget" data-i18n="contact.budget">Budget</label>
+            <select id="cf-budget" class="form-select" name="budget">
+              <option value="b1" data-i18n="contact.budget.1">Under ฿30,000</option>
+              <option value="b2" data-i18n="contact.budget.2">฿30,000 – ฿100,000</option>
+              <option value="b3" selected data-i18n="contact.budget.3">฿100,000 – ฿300,000</option>
+              <option value="b4" data-i18n="contact.budget.4">฿300,000+</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="cf-message" data-i18n="contact.message">Tell us about your project</label>
+          <textarea id="cf-message" class="form-textarea" name="message" required aria-required="true"></textarea>
+        </div>
+        <label class="form-consent">
+          <input type="checkbox" name="consent" required aria-required="true">
+          <span data-i18n-html="contact.consent">ฉันยินยอมให้ Pulselab เก็บและประมวลผลข้อมูลเพื่อตอบกลับการสอบถามนี้ ตาม <a href="privacy.html">นโยบายความเป็นส่วนตัว</a> และ <a href="pdpa.html">PDPA</a></span>
+        </label>
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+        <button type="submit" class="btn btn-primary btn-lg magnetic" style="width:100%;">
+          <span data-i18n="contact.submit">Send inquiry</span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </button>
+      </form>
+
+      <aside class="contact-info reveal reveal-delay-1">
+        <h3 data-i18n="contact.info.title" style="font-size:20px; margin-bottom:8px;">Direct contact</h3>
+        <p style="color:var(--text-muted); font-size:14px; margin-bottom:16px;">Prefer to skip the form? Reach us directly:</p>
+        <div class="info-item">
+          <div class="info-label" data-i18n="contact.info.email.label">Email</div>
+          <a href="mailto:hello@pulselab.work" class="info-value">hello@pulselab.work</a>
+        </div>
+        <div class="info-item">
+          <div class="info-label" data-i18n="contact.info.phone.label">Phone</div>
+          <a href="tel:+6621234567" class="info-value">+66 2 123 4567</a>
+        </div>
+        <div class="info-item">
+          <div class="info-label" data-i18n="contact.info.line.label">Line</div>
+          <div class="info-value">@pulselab</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label" data-i18n="contact.info.office.label">Office</div>
+          <div class="info-value">Bangkok, Thailand<br><span style="color:var(--text-muted); font-size:13px;">Mon–Fri • 09:00 – 18:00</span></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><span class="logo-mark" aria-hidden="true"></span>Pulselab</a>
+        <p data-i18n="footer.tagline"></p>
+      </div>
+      <div>
+        <h4 data-i18n="footer.services">Services</h4>
+        <ul>
+          <li><a href="packages.html" data-i18n="footer.s1"></a></li>
+          <li><a href="packages.html" data-i18n="footer.s2"></a></li>
+          <li><a href="packages.html" data-i18n="footer.s3"></a></li>
+          <li><a href="packages.html" data-i18n="footer.s4"></a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-i18n="footer.company">Company</h4>
+        <ul>
+          <li><a href="about.html" data-i18n="footer.c1"></a></li>
+          <li><a href="portfolio.html" data-i18n="footer.c2"></a></li>
+          <li><a href="packages.html" data-i18n="footer.c3"></a></li>
+          <li><a href="contact.html" data-i18n="footer.c4"></a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-i18n="footer.legal">Legal</h4>
+        <ul>
+          <li><a href="privacy.html" data-i18n="footer.l1"></a></li>
+          <li><a href="terms.html" data-i18n="footer.l2"></a></li>
+          <li><a href="pdpa.html" data-i18n="footer.l3"></a></li>
+          <li><a href="admin/login.html">Admin</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div data-i18n="footer.copy"></div>
+      <div class="social-links">
+        <a href="https://facebook.com/pulselab" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+        <a href="https://instagram.com/pulselab" target="_blank" rel="noopener" aria-label="Instagram">ig</a>
+        <a href="https://linkedin.com/company/pulselab" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+        <a href="https://line.me/R/ti/p/@pulselab" target="_blank" rel="noopener" aria-label="Line">L</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/i18n.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

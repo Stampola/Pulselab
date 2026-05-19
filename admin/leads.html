@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="th" data-lang="th" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Leads — Pulselab Admin</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans+Thai+Looped:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body class="admin-body">
+
+<div class="admin-layout">
+  <aside class="sidebar">
+    <a href="../index.html" class="sidebar-logo"><span class="logo-mark"></span>Pulselab</a>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html"><span class="icon">⬚</span><span data-i18n="admin.nav.dashboard">Dashboard</span></a>
+      <a href="packages.html"><span class="icon">▤</span><span data-i18n="admin.nav.packages">Packages</span></a>
+      <a href="content.html"><span class="icon">✎</span><span data-i18n="admin.nav.content">Content</span></a>
+      <a href="leads.html" class="active"><span class="icon">◌</span><span data-i18n="admin.nav.leads">Leads</span></a>
+      <a href="portfolio.html"><span class="icon">▦</span><span data-i18n="admin.nav.portfolio">Portfolio</span></a>
+      <a href="settings.html"><span class="icon">⚙</span><span data-i18n="admin.nav.settings">Settings</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+      <a href="#" id="logoutBtn" style="font-size:13px; color:var(--text-muted);">↩ <span data-i18n="admin.nav.logout">Log out</span></a>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="admin-header">
+      <div>
+        <h1>Leads</h1>
+        <div class="subtitle">Manage all inquiries from the contact form.</div>
+      </div>
+      <div style="display:flex; gap:8px;">
+        <button class="btn btn-ghost btn-sm" id="exportBtn">↓ Export CSV</button>
+        <button class="btn btn-ghost btn-sm" id="seedBtn">+ Add demo leads</button>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <div class="tab active" data-tab="all">All <span id="count-all" style="opacity:0.5; margin-left:4px;">0</span></div>
+      <div class="tab" data-tab="new">New <span id="count-new" style="opacity:0.5; margin-left:4px;">0</span></div>
+      <div class="tab" data-tab="contacted">Contacted <span id="count-contacted" style="opacity:0.5; margin-left:4px;">0</span></div>
+      <div class="tab" data-tab="won">Won <span id="count-won" style="opacity:0.5; margin-left:4px;">0</span></div>
+      <div class="tab" data-tab="lost">Lost <span id="count-lost" style="opacity:0.5; margin-left:4px;">0</span></div>
+    </div>
+
+    <div class="panel" style="padding:0; overflow:hidden;">
+      <table class="admin-table">
+        <thead>
+          <tr><th>Name</th><th>Email</th><th>Company</th><th>Package</th><th>Budget</th><th>Date</th><th>Status</th><th></th></tr>
+        </thead>
+        <tbody id="leadsBody">
+          <tr><td colspan="8" style="text-align:center; color:var(--text-muted); padding:48px;">No leads to show.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<script src="../assets/js/i18n.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/main.js"></script>
+<script>
+  if (!localStorage.getItem('pulselab_session')) location.href = 'login.html';
+
+  let activeTab = 'all';
+
+  function render() {
+    const data = DataStore.get();
+    const counts = { all: data.leads.length, new: 0, contacted: 0, won: 0, lost: 0 };
+    data.leads.forEach(l => { counts[l.status || 'new']++; });
+    Object.entries(counts).forEach(([k, v]) => {
+      const el = document.getElementById('count-' + k);
+      if (el) el.textContent = v;
+    });
+    const items = activeTab === 'all' ? data.leads : data.leads.filter(l => (l.status || 'new') === activeTab);
+    const body = document.getElementById('leadsBody');
+    if (items.length === 0) {
+      body.innerHTML = `<tr><td colspan="8" style="text-align:center; color:var(--text-muted); padding:48px;">No leads to show.</td></tr>`;
+      return;
+    }
+    body.innerHTML = items.map(l => `
+      <tr>
+        <td><strong>${l.name || '—'}</strong></td>
+        <td><a href="mailto:${l.email}">${l.email || '—'}</a></td>
+        <td>${l.company || '—'}</td>
+        <td>${l.package || '—'}</td>
+        <td>${l.budget || '—'}</td>
+        <td>${new Date(l.createdAt).toLocaleDateString()}</td>
+        <td>
+          <select onchange="updateStatus('${l.id}', this.value)" class="form-select" style="padding:4px 8px; font-size:12px;">
+            <option value="new" ${l.status==='new'?'selected':''}>New</option>
+            <option value="contacted" ${l.status==='contacted'?'selected':''}>Contacted</option>
+            <option value="won" ${l.status==='won'?'selected':''}>Won</option>
+            <option value="lost" ${l.status==='lost'?'selected':''}>Lost</option>
+          </select>
+        </td>
+        <td><button onclick="removeLead('${l.id}')" style="color:var(--danger); font-size:12px;">Delete</button></td>
+      </tr>
+    `).join('');
+  }
+
+  function updateStatus(id, status) {
+    DataStore.updateLead(id, { status });
+    render();
+    showToast('✓ Status updated');
+  }
+  function removeLead(id) {
+    if (!confirm('Delete this lead?')) return;
+    DataStore.removeLead(id);
+    render();
+    showToast('✓ Lead deleted');
+  }
+  window.updateStatus = updateStatus;
+  window.removeLead = removeLead;
+
+  document.querySelectorAll('.tab').forEach(t => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      activeTab = t.dataset.tab;
+      render();
+    });
+  });
+
+  document.getElementById('exportBtn').addEventListener('click', () => {
+    const data = DataStore.get();
+    if (data.leads.length === 0) { showToast('No leads to export'); return; }
+    const headers = ['Name', 'Email', 'Phone', 'Company', 'Package', 'Budget', 'Message', 'Status', 'Date'];
+    const rows = data.leads.map(l => [
+      l.name, l.email, l.phone, l.company, l.package, l.budget,
+      (l.message || '').replace(/"/g, '""'),
+      l.status || 'new',
+      new Date(l.createdAt).toISOString()
+    ].map(v => `"${v || ''}"`).join(','));
+    const csv = headers.join(',') + '\n' + rows.join('\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `pulselab_leads_${new Date().toISOString().slice(0,10)}.csv`;
+    a.click();
+    showToast('✓ Exported');
+  });
+
+  document.getElementById('seedBtn').addEventListener('click', () => {
+    const demos = [
+      { name: 'Pim Suwannasri', email: 'pim@modora.co', company: 'Modora Skincare', package: 'business', budget: 'b3', message: 'Looking to replatform from Shopify.', status: 'won' },
+      { name: 'Krit Phanthong', email: 'krit@lumen.co.th', company: 'Lumen Hospitality', package: 'enterprise', budget: 'b4', message: 'Need a custom booking + admin system.', status: 'contacted' },
+      { name: 'Areeya Chen', email: 'a.chen@northbound.com', company: 'NorthBound B2B', package: 'business', budget: 'b3', message: 'Marketing site + SEO retainer.', status: 'new' },
+      { name: 'Boon Chai', email: 'boon@maesai.coffee', company: 'Mae Sai Coffee', package: 'starter', budget: 'b1', message: 'Landing page for new product.', status: 'new' }
+    ];
+    demos.forEach(d => DataStore.addLead(d));
+    render();
+    showToast('✓ Added 4 demo leads');
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    localStorage.removeItem('pulselab_session');
+    location.href = 'login.html';
+  });
+
+  render();
+</script>
+</body>
+</html>

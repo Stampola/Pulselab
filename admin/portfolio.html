@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="th" data-lang="th" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Portfolio — Pulselab Admin</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans+Thai+Looped:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body class="admin-body">
+
+<div class="admin-layout">
+  <aside class="sidebar">
+    <a href="../index.html" class="sidebar-logo"><span class="logo-mark"></span>Pulselab</a>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html"><span class="icon">⬚</span><span data-i18n="admin.nav.dashboard">Dashboard</span></a>
+      <a href="packages.html"><span class="icon">▤</span><span data-i18n="admin.nav.packages">Packages</span></a>
+      <a href="content.html"><span class="icon">✎</span><span data-i18n="admin.nav.content">Content</span></a>
+      <a href="leads.html"><span class="icon">◌</span><span data-i18n="admin.nav.leads">Leads</span></a>
+      <a href="portfolio.html" class="active"><span class="icon">▦</span><span data-i18n="admin.nav.portfolio">Portfolio</span></a>
+      <a href="settings.html"><span class="icon">⚙</span><span data-i18n="admin.nav.settings">Settings</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+      <a href="#" id="logoutBtn" style="font-size:13px; color:var(--text-muted);">↩ <span data-i18n="admin.nav.logout">Log out</span></a>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="admin-header">
+      <div>
+        <h1>Portfolio</h1>
+        <div class="subtitle">Add, edit, or remove case studies shown on the public site.</div>
+      </div>
+      <button class="btn btn-primary btn-sm" id="addProjectBtn">+ Add project</button>
+    </div>
+
+    <div class="edit-grid" id="projectsGrid"></div>
+  </main>
+</div>
+
+<script src="../assets/js/i18n.js"></script>
+<script src="../assets/js/data.js"></script>
+<script src="../assets/js/main.js"></script>
+<script>
+  if (!localStorage.getItem('pulselab_session')) location.href = 'login.html';
+
+  const CATEGORIES = ['E-commerce', 'SaaS', 'Enterprise', 'Landing', 'Portfolio', 'Booking'];
+  const COLORS = [
+    'linear-gradient(135deg, #ffd6e0 0%, #ffa3bf 100%)',
+    'linear-gradient(135deg, #c2e8ff 0%, #6fb8ff 100%)',
+    'linear-gradient(135deg, #d8c2ff 0%, #9b6ff5 100%)',
+    'linear-gradient(135deg, #ffe2b3 0%, #ffa84a 100%)',
+    'linear-gradient(135deg, #c2ffd6 0%, #4fdf8c 100%)',
+    'linear-gradient(135deg, #ffd0c2 0%, #ff7a5e 100%)'
+  ];
+
+  function render() {
+    const data = DataStore.get();
+    const grid = document.getElementById('projectsGrid');
+    grid.innerHTML = data.portfolio.map((p, idx) => `
+      <div class="edit-card">
+        <div style="background:${p.color}; height:120px; border-radius:8px; margin-bottom:16px;"></div>
+        <div class="admin-field">
+          <label>Title</label>
+          <input data-id="${p.id}" data-key="title" value="${p.title}">
+        </div>
+        <div class="form-grid">
+          <div class="admin-field">
+            <label>Category</label>
+            <select data-id="${p.id}" data-key="category">
+              ${CATEGORIES.map(c => `<option ${c === p.category ? 'selected' : ''}>${c}</option>`).join('')}
+            </select>
+          </div>
+          <div class="admin-field">
+            <label>Year</label>
+            <input data-id="${p.id}" data-key="year" value="${p.year}">
+          </div>
+        </div>
+        <div class="admin-field">
+          <label>Metric (e.g., +340% revenue)</label>
+          <input data-id="${p.id}" data-key="metric" value="${p.metric}">
+        </div>
+        <div class="admin-field">
+          <label>Card color</label>
+          <select data-id="${p.id}" data-key="color">
+            ${COLORS.map((c, i) => `<option value="${c}" ${c === p.color ? 'selected' : ''}>Color ${i + 1}</option>`).join('')}
+          </select>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary btn-sm" onclick="saveProject('${p.id}')">Save</button>
+          <button class="btn btn-ghost btn-sm" onclick="deleteProject('${p.id}')" style="color:var(--danger);">Delete</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function saveProject(id) {
+    const data = DataStore.get();
+    const proj = data.portfolio.find(p => p.id === id);
+    if (!proj) return;
+    document.querySelectorAll(`[data-id="${id}"]`).forEach(el => {
+      proj[el.dataset.key] = el.value;
+    });
+    DataStore.save(data);
+    DataStore._cache = data;
+    showToast('✓ Project saved');
+  }
+  function deleteProject(id) {
+    if (!confirm('Delete this project?')) return;
+    const data = DataStore.get();
+    data.portfolio = data.portfolio.filter(p => p.id !== id);
+    DataStore.save(data);
+    DataStore._cache = data;
+    render();
+    showToast('✓ Project deleted');
+  }
+  window.saveProject = saveProject;
+  window.deleteProject = deleteProject;
+
+  document.getElementById('addProjectBtn').addEventListener('click', () => {
+    const data = DataStore.get();
+    data.portfolio.push({
+      id: 'p' + Date.now(),
+      title: 'New Project',
+      category: 'E-commerce',
+      year: new Date().getFullYear().toString(),
+      metric: 'Result',
+      color: COLORS[Math.floor(Math.random() * COLORS.length)]
+    });
+    DataStore.save(data);
+    DataStore._cache = data;
+    render();
+    showToast('✓ Project added');
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    localStorage.removeItem('pulselab_session');
+    location.href = 'login.html';
+  });
+
+  render();
+</script>
+</body>
+</html>

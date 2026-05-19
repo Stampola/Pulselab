@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <url>
+    <loc>https://pulselab.work/index.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="th" href="https://pulselab.work/index.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pulselab.work/index.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pulselab.work/index.html"/>
+  </url>
+
+  <url>
+    <loc>https://pulselab.work/packages.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="th" href="https://pulselab.work/packages.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pulselab.work/packages.html?lang=en"/>
+  </url>
+
+  <url>
+    <loc>https://pulselab.work/portfolio.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="th" href="https://pulselab.work/portfolio.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pulselab.work/portfolio.html?lang=en"/>
+  </url>
+
+  <url>
+    <loc>https://pulselab.work/about.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="th" href="https://pulselab.work/about.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pulselab.work/about.html?lang=en"/>
+  </url>
+
+  <url>
+    <loc>https://pulselab.work/contact.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="th" href="https://pulselab.work/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pulselab.work/contact.html?lang=en"/>
+  </url>
+
+  <url>
+    <loc>https://pulselab.work/privacy.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://pulselab.work/terms.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://pulselab.work/pdpa.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+</urlset>
